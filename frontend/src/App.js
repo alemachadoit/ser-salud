@@ -12,7 +12,7 @@ function App() {
   return (
     <div>
       <h1>Ser-Salud</h1>
-      <button onClick={consultarAPI}>Consultar API-apo</button>
+      <button onClick={consultarAPI}>Consultar API</button>
       <p>Respuesta: {respuesta}</p>
     </div>
   );
