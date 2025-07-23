@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function App() {
-  const [respuesta, setRespuesta] = useState('');
+  const [mensaje, setMensaje] = useState("Cargando...");
 
-  const consultarAPI = async () => {
-    const res = await fetch('http://localhost:3001/api/ping');
-    const data = await res.json();
-    setRespuesta(data.message);
-  };
+  useEffect(() => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    fetch(`${apiUrl}/api/ping`)
+      .then((res) => res.json())
+      .then((data) => setMensaje(data.message))
+      .catch((err) => {
+        console.error("Error al conectar con backend:", err);
+        setMensaje("No se pudo conectar al backend.");
+      });
+  }, []);
 
   return (
     <div>
-      <h1>Ser-Salud</h1>
-      <button onClick={consultarAPI}>Consultar API</button>
-      <p>Respuesta: {respuesta}</p>
+      <h1>Proyecto Ser-Salud</h1>
+      <p>Respuesta del backend: {mensaje}</p>
     </div>
   );
 }
